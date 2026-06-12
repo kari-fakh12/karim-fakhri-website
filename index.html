@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karim Fakhri – GTM Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #080b12;
+      --bg2:      #0e1320;
+      --bg3:      #141926;
+      --accent:   #4f8ef7;
+      --accent2:  #7c5cfc;
+      --text:     #e8ecf4;
+      --muted:    #8892a4;
+      --border:   rgba(255,255,255,0.07);
+      --card:     rgba(255,255,255,0.04);
+      --glow:     rgba(79,142,247,0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 6%;
+      background: rgba(8,11,18,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--muted); text-decoration: none; font-size: 0.875rem;
+      font-weight: 500; transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
+    .nav-cta {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff !important; padding: 0.45rem 1.1rem;
+      border-radius: 8px; font-weight: 600 !important;
+    }
+    .nav-cta:hover { opacity: 0.9; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 6rem 6% 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -200px; right: -100px;
+      width: 700px; height: 700px;
+      background: radial-gradient(circle, rgba(79,142,247,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -150px; left: -100px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(124,92,252,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: flex; align-items: center; gap: 5rem;
+      max-width: 1100px; margin: 0 auto; width: 100%;
+    }
+    .hero-text { flex: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(79,142,247,0.12); border: 1px solid rgba(79,142,247,0.25);
+      color: var(--accent); padding: 0.35rem 0.9rem; border-radius: 100px;
+      font-size: 0.78rem; font-weight: 600; letter-spacing: 0.04em;
+      text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .hero-badge span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)} }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 .accent {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-sub {
+      font-size: 1.1rem; color: var(--muted); max-width: 480px;
+      margin-bottom: 2rem; line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex; gap: 2.5rem; margin-bottom: 2.5rem;
+    }
+    .hero-stat-value {
+      font-size: 1.6rem; font-weight: 800; letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-stat-label { font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-top: 0.15rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; text-decoration: none; padding: 0.8rem 1.8rem;
+      border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(79,142,247,0.3);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(79,142,247,0.4); }
+    .btn-secondary {
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text); text-decoration: none; padding: 0.8rem 1.8rem;
+      border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.15); }
+
+    /* Hero photo */
+    .hero-photo {
+      flex-shrink: 0;
+      position: relative;
+    }
+    .hero-photo img {
+      width: 320px; height: 380px; object-fit: cover; object-position: center top;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      position: relative; z-index: 1;
+      filter: saturate(1.05);
+    }
+    .hero-photo::before {
+      content: '';
+      position: absolute; inset: -3px;
+      border-radius: 22px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      z-index: 0;
+      opacity: 0.5;
+    }
+    .hero-photo::after {
+      content: '';
+      position: absolute; top: 20px; left: 20px; right: -20px; bottom: -20px;
+      border-radius: 20px;
+      background: var(--glow);
+      filter: blur(30px); z-index: -1;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 6rem 6%; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 800; letter-spacing: -0.03em; margin-bottom: 1rem;
+    }
+    .section-desc { color: var(--muted); max-width: 560px; font-size: 1rem; line-height: 1.75; }
+    .divider { height: 1px; background: var(--border); margin: 0 6%; }
+
+    /* ── ABOUT ── */
+    .about { background: var(--bg2); }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+      margin-top: 3rem;
+    }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 1rem; }
+    .about-text p strong { color: var(--text); }
+    .about-right { display: flex; flex-direction: column; gap: 1rem; }
+    .skill-chip {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--card); border: 1px solid var(--border);
+      padding: 0.5rem 1rem; border-radius: 8px;
+      font-size: 0.85rem; font-weight: 500; color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .skill-chip:hover { border-color: rgba(79,142,247,0.4); background: rgba(79,142,247,0.06); }
+    .skill-chip .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+    .skills-grid { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+
+    /* ── EXPERIENCE ── */
+    .timeline { margin-top: 3rem; position: relative; }
+    .timeline::before {
+      content: ''; position: absolute; left: 18px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), var(--accent2), transparent);
+    }
+    .tl-item {
+      display: flex; gap: 2rem; margin-bottom: 2.5rem; position: relative;
+    }
+    .tl-dot {
+      flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; font-weight: 700; color: #fff;
+      position: relative; z-index: 1;
+      box-shadow: 0 0 16px rgba(79,142,247,0.4);
+    }
+    .tl-card {
+      flex: 1; background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem 1.75rem;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .tl-card:hover { border-color: rgba(79,142,247,0.3); background: rgba(79,142,247,0.04); }
+    .tl-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem; }
+    .tl-role { font-size: 1rem; font-weight: 700; }
+    .tl-date { font-size: 0.78rem; color: var(--accent); font-weight: 600; background: rgba(79,142,247,0.1); padding: 0.25rem 0.65rem; border-radius: 100px; }
+    .tl-company { font-size: 0.875rem; color: var(--accent); font-weight: 600; margin-bottom: 0.75rem; }
+    .tl-desc { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+    .tl-desc li { list-style: none; padding-left: 1.2rem; position: relative; margin-bottom: 0.3rem; }
+    .tl-desc li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; top: 0.05rem; }
+
+    /* ── PROJECTS ── */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; }
+    .proj-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 1.75rem;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .proj-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+    }
+    .proj-card:hover { transform: translateY(-4px); border-color: rgba(79,142,247,0.35); box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+    .proj-icon { font-size: 1.8rem; margin-bottom: 1rem; }
+    .proj-title { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .proj-desc { color: var(--muted); font-size: 0.875rem; line-height: 1.7; margin-bottom: 1.25rem; }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .proj-tag { background: rgba(79,142,247,0.1); border: 1px solid rgba(79,142,247,0.2); color: var(--accent); padding: 0.2rem 0.65rem; border-radius: 100px; font-size: 0.75rem; font-weight: 600; }
+
+    /* ── EDUCATION ── */
+    .edu { background: var(--bg2); }
+    .edu-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 2rem 2.25rem; margin-top: 3rem;
+      display: flex; gap: 2rem; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .edu-card:hover { border-color: rgba(79,142,247,0.3); }
+    .edu-icon {
+      width: 56px; height: 56px; border-radius: 12px; flex-shrink: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+    }
+    .edu-school { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .edu-degree { color: var(--accent); font-size: 0.875rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .edu-years { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.75rem; }
+    .edu-desc { color: var(--muted); font-size: 0.875rem; line-height: 1.7; }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 3rem;
+    }
+    .contact-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.5rem;
+      display: flex; align-items: center; gap: 1.1rem;
+      text-decoration: none; color: var(--text);
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .contact-card:hover { transform: translateY(-3px); border-color: rgba(79,142,247,0.35); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+    .contact-icon {
+      width: 46px; height: 46px; border-radius: 10px; flex-shrink: 0;
+      background: rgba(79,142,247,0.12); border: 1px solid rgba(79,142,247,0.2);
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .contact-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+    .contact-value { font-size: 0.9rem; font-weight: 600; margin-top: 0.15rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      padding: 2rem 6%; text-align: center;
+      border-top: 1px solid var(--border);
+      color: var(--muted); font-size: 0.8rem;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { flex-direction: column-reverse; gap: 2.5rem; text-align: center; }
+      .hero-sub { margin: 0 auto 2rem; }
+      .hero-stats { justify-content: center; }
+      .hero-actions { justify-content: center; }
+      .hero-photo img { width: 240px; height: 290px; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .edu-card { flex-direction: column; gap: 1rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">KF</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge"><span></span>Open to GTM Engineer opportunities</div>
+      <h1>Hi, I'm <span class="accent">Karim Fakhri</span></h1>
+      <p class="hero-sub">
+        GTM Engineer building AI outbound systems that book meetings on autopilot — using <strong style="color:var(--text)">Clay</strong>, <strong style="color:var(--text)">Make.com</strong>, and AI workflows.
+      </p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-value">€500K+</div>
+          <div class="hero-stat-label">B2B Revenue Generated</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">4+</div>
+          <div class="hero-stat-label">Years in Sales & GTM</div>
+        </div>
+        <div>
+          <div class="hero-stat-value">15+</div>
+          <div class="hero-stat-label">Campaigns Launched</div>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary">Get in Touch</a>
+        <a href="https://www.linkedin.com/in/karim-fakhrii/" target="_blank" class="btn-secondary">LinkedIn ↗</a>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="photo.jpg" alt="Karim Fakhri" />
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="section-inner">
+    <div class="section-tag">About</div>
+    <h2 class="section-title">Building the future of outbound</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          I came to Germany from Lebanon <strong>4 years ago</strong>, navigating a new language, a new country, and a world mid-pandemic. What started with working at McDonald's and DHL turned into a journey through high-ticket B2B sales — and now into <strong>GTM engineering and AI outbound</strong>.
+        </p>
+        <p>
+          Most outbound teams don't have a lead problem. They have bad targeting, weak enrichment, and generic outreach. That's what I'm focused on solving through <strong>signal-based systems</strong> and AI workflows.
+        </p>
+        <p>
+          I'm currently studying <strong>Computer Software Engineering</strong> at the University of Duisburg-Essen, bridging technical knowledge with strategic GTM execution.
+        </p>
+      </div>
+      <div class="about-right">
+        <p style="color:var(--muted);font-size:0.875rem;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.5rem;">Tech Stack</p>
+        <div class="skills-grid">
+          <span class="skill-chip"><span class="dot"></span>Clay</span>
+          <span class="skill-chip"><span class="dot"></span>Make.com</span>
+          <span class="skill-chip"><span class="dot"></span>HeyReach</span>
+          <span class="skill-chip"><span class="dot"></span>Claude / AI Prompting</span>
+          <span class="skill-chip"><span class="dot"></span>Signal-Based Outbound</span>
+          <span class="skill-chip"><span class="dot"></span>Lead Scoring</span>
+          <span class="skill-chip"><span class="dot"></span>ICP Targeting</span>
+          <span class="skill-chip"><span class="dot"></span>B2B Sales</span>
+          <span class="skill-chip"><span class="dot"></span>Python</span>
+          <span class="skill-chip"><span class="dot"></span>CRM Systems</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-inner">
+    <div class="section-tag">Experience</div>
+    <h2 class="section-title">Where I've worked</h2>
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div class="tl-role">GTM Engineer</div>
+            <div class="tl-date">Mar 2026 – Present</div>
+          </div>
+          <div class="tl-company">Clay · Freelance</div>
+          <ul class="tl-desc">
+            <li>Built signal-based outbound systems to identify high-intent companies</li>
+            <li>Designed lead scoring logic and ICP filtering workflows</li>
+            <li>Enriched and mapped decision-makers for targeted outreach</li>
+            <li>Built automated workflows using Make.com to process outbound-ready leads</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div class="tl-role">GTM Engineer</div>
+            <div class="tl-date">Nov 2025 – Present</div>
+          </div>
+          <div class="tl-company">Self-employed · Germany (On-site)</div>
+          <ul class="tl-desc">
+            <li>Built AI outbound infrastructure combining Clay, Make.com, and AI workflows</li>
+            <li>Designed full GTM motions from ICP definition to campaign launch</li>
+            <li>Delivered AI-powered lead qualification systems for B2B clients</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div class="tl-role">Sales Specialist</div>
+            <div class="tl-date">Mar 2025 – Oct 2025</div>
+          </div>
+          <div class="tl-company">Viral Mates · Remote</div>
+          <ul class="tl-desc">
+            <li>Closed $40K+ in revenue within 3 months on limited weekly calls</li>
+            <li>Managed full sales cycle — booking, follow-ups, and closing</li>
+            <li>Analyzed lead quality and conversion patterns across the funnel</li>
+            <li>Worked with CRM to track deals and pipeline performance</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div class="tl-role">Inside Sales Representative</div>
+            <div class="tl-date">Jun 2024 – Oct 2024</div>
+          </div>
+          <div class="tl-company">Horizon Beirut · Remote · Part-time</div>
+          <ul class="tl-desc">
+            <li>Generated $100K+ in revenue part-time through high-ticket B2B sales</li>
+            <li>Worked across outbound and inbound funnels</li>
+            <li>Collaborated with marketing to align lead generation and sales execution</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-card">
+          <div class="tl-header">
+            <div class="tl-role">Sales Executive</div>
+            <div class="tl-date">Jan 2024 – Jun 2024</div>
+          </div>
+          <div class="tl-company">Matjarak Academy · Remote · Part-time</div>
+          <ul class="tl-desc">
+            <li>Scaled company revenue from $0 to $120K+ in under 5 months as first sales hire</li>
+            <li>Owned the full sales cycle from first contact to closing</li>
+            <li>Contributed to building the sales process, follow-up systems, and onboarding workflows</li>
+            <li>Worked directly with founder to refine the offer and improve conversion rates</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--bg2)">
+  <div class="section-inner">
+    <div class="section-tag">Projects</div>
+    <h2 class="section-title">What I've built</h2>
+    <p class="section-desc">Hands-on GTM systems designed for scale — not demos, real production workflows.</p>
+    <div class="projects-grid">
+
+      <div class="proj-card">
+        <div class="proj-icon">⚙️</div>
+        <div class="proj-title">Automated Lead Qualification System</div>
+        <p class="proj-desc">
+          Built an automated lead qualification system using Make.com. Processes incoming leads, enriches data via APIs, and applies qualification logic to prepare outbound-ready lead lists at scale.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag">Make.com</span>
+          <span class="proj-tag">API Enrichment</span>
+          <span class="proj-tag">Lead Scoring</span>
+          <span class="proj-tag">Automation</span>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-icon">🎯</div>
+        <div class="proj-title">Signal-Based ICP Identification & Lead Scoring</div>
+        <p class="proj-desc">
+          Built a signal-based system in Clay to identify and prioritize high-intent companies for GTM outreach. Uses real-time signals, enrichment, and scoring logic to filter companies and map decision-makers.
+        </p>
+        <div class="proj-tags">
+          <span class="proj-tag">Clay</span>
+          <span class="proj-tag">Signal-Based</span>
+          <span class="proj-tag">ICP Mapping</span>
+          <span class="proj-tag">Outbound</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EDUCATION -->
+<section class="edu" id="education">
+  <div class="section-inner">
+    <div class="section-tag">Education</div>
+    <h2 class="section-title">Academic background</h2>
+    <div class="edu-card">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <div class="edu-school">University of Duisburg-Essen</div>
+        <div class="edu-degree">Bachelor's degree · Computer Software Engineering</div>
+        <div class="edu-years">Nov 2022 – 2026 · Currently in 3rd year</div>
+        <p class="edu-desc">
+          Building a solid foundation in software development, systems, and programming. This technical knowledge directly accelerates my GTM engineering work — bridging deep product understanding with strategic sales execution.
+          Proficient in Python and Java, with exposure to Machine Learning.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-tag">Contact</div>
+    <h2 class="section-title">Let's work together</h2>
+    <p class="section-desc">Open to GTM Engineer and AI outbound opportunities. Reach out and let's talk.</p>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:karim.fakhry@hotmail.com">
+        <div class="contact-icon">✉️</div>
+        <div>
+          <div class="contact-label">Email</div>
+          <div class="contact-value">karim.fakhry@hotmail.com</div>
+        </div>
+      </a>
+      <a class="contact-card" href="https://www.linkedin.com/in/karim-fakhrii/" target="_blank">
+        <div class="contact-icon">💼</div>
+        <div>
+          <div class="contact-label">LinkedIn</div>
+          <div class="contact-value">linkedin.com/in/karim-fakhrii</div>
+        </div>
+      </a>
+      <a class="contact-card" href="https://facebook.com" target="_blank">
+        <div class="contact-icon">📘</div>
+        <div>
+          <div class="contact-label">Facebook</div>
+          <div class="contact-value">Personal</div>
+        </div>
+      </a>
+      <a class="contact-card" href="tel:+491777576528">
+        <div class="contact-icon">📞</div>
+        <div>
+          <div class="contact-label">Phone</div>
+          <div class="contact-value">+49 177 757 6528</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2026 Karim Fakhri · GTM Engineer · Essen, Germany · Built with ❤️</p>
+</footer>
+
+</body>
+</html>
